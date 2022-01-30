@@ -32,6 +32,9 @@
 - remove seed stock
 - rate seed stock
 - allow comments to seed stock
+- link past growths 
+- allow sharing of seedstock
+- choose if growths are shared
 
 ## Notifications 
 - setup desktop notification server
