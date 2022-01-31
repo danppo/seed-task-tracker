@@ -11,6 +11,8 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
+import AdornmentTypeInput from './components/adornmentTypeInput';
+
 const Form = () => {
 
   const [displayName, setDisplayName ] = useState<string>('');
@@ -25,10 +27,17 @@ const Form = () => {
   const onSubmit = () => {
     console.log('submitted')
   }
-  const handleWeightVolumeChange = (event: SelectChangeEvent) => {
-    console.log('handleWeightVolumeChange');
-    setWeightVolume(event.target.value);
+  const onWeightVolumeChange = (input: any) => {
+    console.log(input)
   }
+
+  const weightVolumeOptions = [
+    {value: "gram", displayName: "grams"},
+    {value: "ounce", displayName: "oz"},
+    {value: "teaspoon", displayName: "tsp"},
+    {value: "tablespoon", displayName: "tbsp"}
+  ]
+
 
   const [weightVolume, setWeightVolume] = useState<string>("gram")
   const WeightAdornment = () => (
@@ -40,7 +49,7 @@ const Form = () => {
         id="demo-simple-select"
         value={weightVolume}
         label="Volume-weight"
-        onChange={handleWeightVolumeChange}
+        // onChange={handleWeightVolumeChange}
       >
         <MenuItem value={"gram"}>gram</MenuItem>
         <MenuItem value={"teaspoon"}>tsp</MenuItem>
@@ -102,6 +111,12 @@ const Form = () => {
             inputProps={{
               'aria-label': 'weight',
             }}
+          />
+          <AdornmentTypeInput 
+            adornmentInitialValue={weightVolumeOptions[1].value}
+            adornmentOptions={weightVolumeOptions}
+            onChange={onWeightVolumeChange}
+          
           />
         {/* TODO: add field with volume or weight or both */}
         <TextField
