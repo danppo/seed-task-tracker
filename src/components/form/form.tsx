@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
+import ScheduleInput from '../scheduleInput';
 
 const Form = () => {
 
@@ -85,15 +86,14 @@ const Form = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGrowthMedium(e.target.value)}
         />
 
+        <ScheduleInput />
         <TextField
-          fullWidth
           id="taskAction"
           label="Add reminders to water or mist"
           value={taskAction}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTaskAction(e.target.value)}
         />
         <TextField
-          fullWidth
           id="taskschedule"
           label="How often do you need to do it"
           value={taskSchedule}
