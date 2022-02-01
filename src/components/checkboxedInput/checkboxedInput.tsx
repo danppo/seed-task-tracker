@@ -3,15 +3,14 @@ import TextField from '@mui/material/TextField';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import styles from './scheduledInput.module.scss';
+import styles from './checkboxedInput.module.scss';
 
 type Props = {
   label: string;
   checkboxValues: string[];
   onChange: (item: object) => void;
 }
-// TODO: rename component
-const ScheduleInput= ({
+const CheckboxedInput= ({
   label,
   checkboxValues,
   onChange
@@ -19,7 +18,6 @@ const ScheduleInput= ({
 ) => {
   const [pickedCheckBox, setPickedCheckBox] = useState<string[]>([]);
   const [inputValue, setInputValue ] = useState<string>('');
-// TODO: Style input boxes
 
   const handleChange = (event:ChangeEvent<HTMLInputElement>) => {
     const name = event.target.name;
@@ -34,7 +32,7 @@ const ScheduleInput= ({
     if (inputValue.length > 0 && pickedCheckBox.length > 0)
     onChange({ inputValue, pickedCheckBox })
 
-  }, [pickedCheckBox, inputValue])
+  }, [pickedCheckBox, inputValue, onChange])
 
   return (
     <div className={styles.InputAndOptions}>
@@ -44,7 +42,7 @@ const ScheduleInput= ({
         value={inputValue}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
       />
-      <FormGroup>
+      <FormGroup className={styles.checkboxInputs}>
         {
           checkboxValues.map((checkValue: string) => 
             <FormControlLabel
@@ -67,4 +65,4 @@ const ScheduleInput= ({
   );
 }
 
-export default ScheduleInput
+export default CheckboxedInput

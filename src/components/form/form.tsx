@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
-import ScheduleInput from '../scheduleInput';
+import CheckboxedInput from '../checkboxedInput';
 
 const Form = () => {
 
@@ -29,7 +29,7 @@ const Form = () => {
 
 
   return (
-    <Card sx={{ minWidth: 275, maxWidth: 650, p: 4 }}>
+    <Card sx={{ minWidth: 275, maxWidth: 950, p: 4 }}>
 
       <Typography variant="h3" component="h3">
         Add New Seeds
@@ -92,7 +92,7 @@ const Form = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGrowthMedium(e.target.value)}
         />
 
-        <ScheduleInput
+        <CheckboxedInput
           label="Add reminders to water or mist"
           checkboxValues={[ 'Morning', 'Late Morning', 'Midday', 'Evening' ]} //TODO: pull these values from user settings 
           onChange={onScheduledInput}
