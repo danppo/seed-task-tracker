@@ -1,15 +1,15 @@
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
-import OutlinedInput from '@mui/material/OutlinedInput';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
+import Grid from '@mui/material/Grid';
+import MuiInput from '@mui/material/Input';
+import { styled } from '@mui/material/styles';
 import { useState } from 'react';
 
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 import AdornmentTypeInput from './components/adornmentTypeInput';
 
@@ -24,6 +24,24 @@ const Form = () => {
   const [taskSchedule, setTaskSchedule ] = useState<string>('');
   const [comments, setComments ] = useState<string>('');
 
+
+  const [value, setValue] = useState<number | string | Array<number | string>>(
+    30,
+  );
+
+  const handleSliderChange = (event: Event, newValue: number | number[]) => {
+    setValue(newValue);
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value === '' ? '' : Number(event.target.value));
+  };
+
+  const Input = styled(MuiInput)`
+  width: 42px;
+`;
+
+
   const onSubmit = () => {
     console.log('submitted')
   }
@@ -37,9 +55,6 @@ const Form = () => {
     {value: "teaspoon", displayName: "tsp"},
     {value: "tablespoon", displayName: "tbsp"}
   ]
-
-
-  const [weightVolume, setWeightVolume] = useState<string>("gram")
 
   return (
     <Card sx={{ minWidth: 275, maxWidth: 650, p: 4 }}>
@@ -72,27 +87,6 @@ const Form = () => {
           <TextField fullWidth id="seedPurchase" label="Where did you buy them" /> 
         </Card>
 
-        {/* <TextField
-          fullWidth
-          id="seedVolume"
-          value={seedVolume}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSeedVolume(e.target.value)}
-          label="How much seed did you use"
-          InputProps={{
-            endAdornment: <InputAdornment position="start"><WeightAdornment /></InputAdornment>,
-          }}
-          helperText="add by volume or weight or both"
-        />
-          <OutlinedInput
-            id="outlined-adornment-weight"
-            // value={values.weight}
-            // onChange={handleChange('weight')}
-            endAdornment={<InputAdornment position="end">kg</InputAdornment>}
-            aria-describedby="outlined-weight-helper-text"
-            inputProps={{
-              'aria-label': 'weight',
-            }}
-          /> */}
           <AdornmentTypeInput 
             adornmentInitialValue={weightVolumeOptions[1].value}
             adornmentOptions={weightVolumeOptions}
@@ -102,6 +96,40 @@ const Form = () => {
           
           />
         {/* TODO: add field with volume or weight or both */}
+        <Box sx={{ width: 350 }}>
+          <Typography id="input-slider" gutterBottom>
+            Soaking Time (hours)
+          </Typography>
+          <Grid container spacing={2} alignItems="center">
+            <Grid item xs>
+              <Slider
+                value={typeof value === 'number' ? value : 0}
+                onChange={handleSliderChange}
+                aria-labelledby="input-slider"
+                // defaultValue={30}
+                step={1}
+                marks
+                min={0}
+                max={12}
+              />
+            </Grid>
+            <Grid item>
+              <Input
+                value={value}
+                size="small"
+                onChange={handleInputChange}
+                // onBlur={handleBlur}
+                inputProps={{
+                  step: 1,
+                  min: 0,
+                  max: 48,
+                  type: 'number',
+                  'aria-labelledby': 'input-slider',
+                }}
+              />
+            </Grid>
+          </Grid>
+        </Box>
         <TextField
           fullWidth
           id="growthType"
