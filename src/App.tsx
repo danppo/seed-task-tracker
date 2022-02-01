@@ -3,11 +3,11 @@ import { Routes, Route, Outlet, Link } from "react-router-dom";
 import Form from './components/form';
 import logo from './logo.svg';
 import Container from '@mui/material/Container';
-import './App.css';
+import './App.scss';
 
 const App = () => {
 
-  
+
   return (
     <div>
       <h1>Basic Example</h1>

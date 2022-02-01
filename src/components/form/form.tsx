@@ -20,6 +20,12 @@ const Form = () => {
   const onSubmit = () => {
     console.log('submitted')
   }
+  const onScheduledInput = (item: object) => {
+    console.log('triggered')
+    console.log(item);
+    
+
+  }
 
 
   return (
@@ -86,18 +92,10 @@ const Form = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGrowthMedium(e.target.value)}
         />
 
-        <ScheduleInput />
-        <TextField
-          id="taskAction"
+        <ScheduleInput
           label="Add reminders to water or mist"
-          value={taskAction}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTaskAction(e.target.value)}
-        />
-        <TextField
-          id="taskschedule"
-          label="How often do you need to do it"
-          value={taskSchedule}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTaskSchedule(e.target.value)}
+          checkboxValues={[ 'Morning', 'Late Morning', 'Midday', 'Evening' ]} //TODO: pull these values from user settings 
+          onChange={onScheduledInput}
         />
         {/* TODO: add multiple tasks */}
         <TextField

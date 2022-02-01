@@ -1,59 +1,69 @@
-import {ChangeEvent, useState} from 'react';
+import {ChangeEvent, useEffect, useState} from 'react';
 import TextField from '@mui/material/TextField';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import styles from './scheduledInput.module.scss';
 
-const ScheduleInput= () => {
-  const [pickedTime, setPickedTime] = useState<string[]>([]);
-  const [taskAction, setTaskAction ] = useState<string>('');
-  const times = [
-    'Morning',
-    'Midday',
-    'Evening',
-  ];
-// TODO: pass in times
-// TODO: textfield label
-// TODO: passin onchange action
+type Props = {
+  label: string;
+  checkboxValues: string[];
+  onChange: (item: object) => void;
+}
+// TODO: rename component
+const ScheduleInput= ({
+  label,
+  checkboxValues,
+  onChange
+}: Props
+) => {
+  const [pickedCheckBox, setPickedCheckBox] = useState<string[]>([]);
+  const [inputValue, setInputValue ] = useState<string>('');
 // TODO: Style input boxes
 
   const handleChange = (event:ChangeEvent<HTMLInputElement>) => {
     const name = event.target.name;
-    if (pickedTime.indexOf(name) === -1) {
-      setPickedTime([...pickedTime, name])
+    if (pickedCheckBox.indexOf(name) === -1) {
+      setPickedCheckBox([...pickedCheckBox, name])
     } else {
-      const filterArray = pickedTime.filter((item: string) => item !== name);
-      setPickedTime(filterArray)
+      const filterArray = pickedCheckBox.filter((item: string) => item !== name);
+      setPickedCheckBox(filterArray)
     }
   };
+  useEffect(() => {
+    if (inputValue.length > 0 && pickedCheckBox.length > 0)
+    onChange({ inputValue, pickedCheckBox })
+
+  }, [pickedCheckBox, inputValue])
 
   return (
-    <>
+    <div className={styles.InputAndOptions}>
       <TextField
         id="taskAction"
-        label="Add reminders to water or mist"
-        value={taskAction}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTaskAction(e.target.value)}
+        label={label}
+        value={inputValue}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
       />
       <FormGroup>
         {
-          times.map((time) => 
+          checkboxValues.map((checkValue: string) => 
             <FormControlLabel
-              key={time}
+              key={checkValue}
               control={
                 <Checkbox
-                  checked={pickedTime.indexOf(time) === -1 ? false : true }
+                  checked={pickedCheckBox.indexOf(checkValue) === -1 ? false : true }
                   onChange={handleChange}
-                  name={time}
+                  name={checkValue}
                   inputProps={{ 'aria-label': 'controlled' }}
+                  size="small"
                 />
               }
-              label={time}
+              label={checkValue}
             />
           )
         }
       </FormGroup>
-    </>
+    </div>
   );
 }
 
