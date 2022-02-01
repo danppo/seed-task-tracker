@@ -1,0 +1,10 @@
+.InputAndOptions{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .checkboxInputs {
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+}

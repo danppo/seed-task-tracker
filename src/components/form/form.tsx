@@ -1,17 +1,12 @@
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
-import OutlinedInput from '@mui/material/OutlinedInput';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
+import CheckboxedInput from '../checkboxedInput';
 
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-
-import AdornmentTypeInput from './components/adornmentTypeInput';
+import AdornmentTypeInput from '../adornmentTypeInput';
 
 const Form = () => {
 
@@ -27,6 +22,12 @@ const Form = () => {
   const onSubmit = () => {
     console.log('submitted')
   }
+  const onScheduledInput = (item: object) => {
+    console.log('triggered')
+    console.log(item);
+    
+
+  }
   const onWeightVolumeChange = (input: string, inputType: string) => {
     console.log(input, inputType)
   }
@@ -38,11 +39,8 @@ const Form = () => {
     {value: "tablespoon", displayName: "tbsp"}
   ]
 
-
-  const [weightVolume, setWeightVolume] = useState<string>("gram")
-
   return (
-    <Card sx={{ minWidth: 275, maxWidth: 650, p: 4 }}>
+    <Card sx={{ minWidth: 275, maxWidth: 950, p: 4 }}>
 
       <Typography variant="h3" component="h3">
         Add New Seeds
@@ -72,27 +70,6 @@ const Form = () => {
           <TextField fullWidth id="seedPurchase" label="Where did you buy them" /> 
         </Card>
 
-        {/* <TextField
-          fullWidth
-          id="seedVolume"
-          value={seedVolume}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSeedVolume(e.target.value)}
-          label="How much seed did you use"
-          InputProps={{
-            endAdornment: <InputAdornment position="start"><WeightAdornment /></InputAdornment>,
-          }}
-          helperText="add by volume or weight or both"
-        />
-          <OutlinedInput
-            id="outlined-adornment-weight"
-            // value={values.weight}
-            // onChange={handleChange('weight')}
-            endAdornment={<InputAdornment position="end">kg</InputAdornment>}
-            aria-describedby="outlined-weight-helper-text"
-            inputProps={{
-              'aria-label': 'weight',
-            }}
-          /> */}
           <AdornmentTypeInput 
             adornmentInitialValue={weightVolumeOptions[1].value}
             adornmentOptions={weightVolumeOptions}
@@ -125,19 +102,10 @@ const Form = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGrowthMedium(e.target.value)}
         />
 
-        <TextField
-          fullWidth
-          id="taskAction"
+        <CheckboxedInput
           label="Add reminders to water or mist"
-          value={taskAction}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTaskAction(e.target.value)}
-        />
-        <TextField
-          fullWidth
-          id="taskschedule"
-          label="How often do you need to do it"
-          value={taskSchedule}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTaskSchedule(e.target.value)}
+          checkboxValues={[ 'Morning', 'Midday', 'Evening' ]} //TODO: pull these values from user settings 
+          onChange={onScheduledInput}
         />
         {/* TODO: add multiple tasks */}
         <TextField
