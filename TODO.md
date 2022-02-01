@@ -17,6 +17,7 @@
 - harvest amount
 - second harvest 
 - finish growing button
+- add blackout period
 
 ## Display history
 - show all information from initial add
@@ -32,6 +33,9 @@
 - remove seed stock
 - rate seed stock
 - allow comments to seed stock
+- link past growths 
+- allow sharing of seedstock
+- choose if growths are shared
 
 ## Notifications 
 - setup desktop notification server

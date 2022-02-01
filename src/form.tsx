@@ -1,9 +1,17 @@
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import OutlinedInput from '@mui/material/OutlinedInput';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
+
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+
+import AdornmentTypeInput from './components/adornmentTypeInput';
 
 const Form = () => {
 
@@ -19,7 +27,19 @@ const Form = () => {
   const onSubmit = () => {
     console.log('submitted')
   }
+  const onWeightVolumeChange = (input: string, inputType: string) => {
+    console.log(input, inputType)
+  }
 
+  const weightVolumeOptions = [
+    {value: "gram", displayName: "grams"},
+    {value: "ounce", displayName: "oz"},
+    {value: "teaspoon", displayName: "tsp"},
+    {value: "tablespoon", displayName: "tbsp"}
+  ]
+
+
+  const [weightVolume, setWeightVolume] = useState<string>("gram")
 
   return (
     <Card sx={{ minWidth: 275, maxWidth: 650, p: 4 }}>
@@ -39,7 +59,6 @@ const Form = () => {
         />
         <TextField
           fullWidth
-          disabled
           id="seedVariety"
           label="What is the seed variety"  
         /> 
@@ -53,14 +72,35 @@ const Form = () => {
           <TextField fullWidth id="seedPurchase" label="Where did you buy them" /> 
         </Card>
 
-        <TextField
+        {/* <TextField
           fullWidth
           id="seedVolume"
           value={seedVolume}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSeedVolume(e.target.value)}
           label="How much seed did you use"
+          InputProps={{
+            endAdornment: <InputAdornment position="start"><WeightAdornment /></InputAdornment>,
+          }}
           helperText="add by volume or weight or both"
         />
+          <OutlinedInput
+            id="outlined-adornment-weight"
+            // value={values.weight}
+            // onChange={handleChange('weight')}
+            endAdornment={<InputAdornment position="end">kg</InputAdornment>}
+            aria-describedby="outlined-weight-helper-text"
+            inputProps={{
+              'aria-label': 'weight',
+            }}
+          /> */}
+          <AdornmentTypeInput 
+            adornmentInitialValue={weightVolumeOptions[1].value}
+            adornmentOptions={weightVolumeOptions}
+            onChange={onWeightVolumeChange}
+            label="How much seed did you use"
+            helperText="add by volume or weight"
+          
+          />
         {/* TODO: add field with volume or weight or both */}
         <TextField
           fullWidth
