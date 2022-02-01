@@ -27,8 +27,8 @@ const Form = () => {
   const onSubmit = () => {
     console.log('submitted')
   }
-  const onWeightVolumeChange = (input: any) => {
-    console.log(input)
+  const onWeightVolumeChange = (input: string, inputType: string) => {
+    console.log(input, inputType)
   }
 
   const weightVolumeOptions = [
@@ -40,24 +40,6 @@ const Form = () => {
 
 
   const [weightVolume, setWeightVolume] = useState<string>("gram")
-  const WeightAdornment = () => (
-
-    <FormControl>
-      {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={weightVolume}
-        label="Volume-weight"
-        // onChange={handleWeightVolumeChange}
-      >
-        <MenuItem value={"gram"}>gram</MenuItem>
-        <MenuItem value={"teaspoon"}>tsp</MenuItem>
-        <MenuItem value={"tablespoon"}>tbsp</MenuItem>
-      </Select>
-    </FormControl>
-  );
-
 
   return (
     <Card sx={{ minWidth: 275, maxWidth: 650, p: 4 }}>
@@ -77,7 +59,6 @@ const Form = () => {
         />
         <TextField
           fullWidth
-          disabled
           id="seedVariety"
           label="What is the seed variety"  
         /> 
@@ -91,7 +72,7 @@ const Form = () => {
           <TextField fullWidth id="seedPurchase" label="Where did you buy them" /> 
         </Card>
 
-        <TextField
+        {/* <TextField
           fullWidth
           id="seedVolume"
           value={seedVolume}
@@ -111,11 +92,13 @@ const Form = () => {
             inputProps={{
               'aria-label': 'weight',
             }}
-          />
+          /> */}
           <AdornmentTypeInput 
             adornmentInitialValue={weightVolumeOptions[1].value}
             adornmentOptions={weightVolumeOptions}
             onChange={onWeightVolumeChange}
+            label="How much seed did you use"
+            helperText="add by volume or weight"
           
           />
         {/* TODO: add field with volume or weight or both */}

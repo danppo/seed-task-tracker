@@ -1,64 +1,57 @@
-import Card from '@mui/material/Card';
-import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import { useEffect, useState } from 'react';
-
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { useEffect, useState } from 'react';
+import styles from "./adornmentTypeInput.module.scss"
 
 interface OptionList {
   value: string;
   displayName: string;
 };
-// TODO: add props label, wire up use effect, helper trxt props
+
 type Props = {
   adornmentInitialValue: string;
   adornmentOptions: OptionList[];
   onChange: (value: string, adornment: string) => void;
+  label: string;
+  helperText: string;
 };
 
 const AdornmentTypeInput = ({
   adornmentInitialValue,
   adornmentOptions,
-  onChange
+  onChange,
+  label,
+  helperText
 }: Props) => {
-  const [weightVolume, setWeightVolume] = useState<string>(adornmentInitialValue)
-  const [seedVolume, setSeedVolume ] = useState<string>('');
+  const [adornmentValue, setAdornmentValue] = useState<string>(adornmentInitialValue)
+  const [inputValue, setInputValue ] = useState<string>('');
 
-  const handleWeightVolumeChange = (event: SelectChangeEvent) => {
-    console.log('handleWeightVolumeChange');
-    setWeightVolume(event.target.value);
+  const handleAdornmentChange = (e: SelectChangeEvent) => {
+    setAdornmentValue(e.target.value);
   }
 
-  console.log(adornmentInitialValue);
-  
-
   useEffect(() => {
-    onChange('hard Value', 'hard Adornment')
-  }, [])
+    if (inputValue.length > 0 ){
+      onChange(inputValue, adornmentValue)
+    }
+  }, [inputValue, adornmentValue])
   
-
   const Adornment = () => (
     <FormControl>
-      {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
       <Select
+        className={styles.select}
         labelId="demo-simple-select-label"
         id="demo-simple-select"
-        value={weightVolume}
+        value={adornmentValue}
         label="Volume-weight"
-        onChange={handleWeightVolumeChange}
+        onChange={handleAdornmentChange}
       >
         {adornmentOptions.map((option) =>
         <MenuItem key={option.value} value={option.value}>{option.displayName}</MenuItem>
         )}
-        {/* <MenuItem value={"gram"}>gram</MenuItem>
-        <MenuItem value={"teaspoon"}>tsp</MenuItem>
-        <MenuItem value={"tablespoon"}>tbsp</MenuItem> */}
       </Select>
     </FormControl>
   );
@@ -67,13 +60,13 @@ const AdornmentTypeInput = ({
     <TextField
       fullWidth
       id="seedVolume"
-      value={seedVolume}
-      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSeedVolume(e.target.value)}
-      label="How much seed did you use"
+      value={inputValue}
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
+      label={label}
       InputProps={{
-        endAdornment: <InputAdornment position="start"><Adornment /></InputAdornment>,
+        endAdornment: <InputAdornment position="end"><Adornment /></InputAdornment>,
       }}
-      helperText="add by volume or weight or both"
+      helperText={helperText}
     />
   )};
 
