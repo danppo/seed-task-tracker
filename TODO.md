@@ -17,6 +17,7 @@
 - harvest amount
 - second harvest 
 - finish growing button
+- add blackout period
 
 ## Display history
 - show all information from initial add

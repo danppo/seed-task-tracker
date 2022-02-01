@@ -6,6 +6,8 @@ import Button from '@mui/material/Button';
 import { useState } from 'react';
 import CheckboxedInput from '../checkboxedInput';
 
+import AdornmentTypeInput from '../adornmentTypeInput';
+
 const Form = () => {
 
   const [displayName, setDisplayName ] = useState<string>('');
@@ -26,7 +28,16 @@ const Form = () => {
     
 
   }
+  const onWeightVolumeChange = (input: string, inputType: string) => {
+    console.log(input, inputType)
+  }
 
+  const weightVolumeOptions = [
+    {value: "gram", displayName: "grams"},
+    {value: "ounce", displayName: "oz"},
+    {value: "teaspoon", displayName: "tsp"},
+    {value: "tablespoon", displayName: "tbsp"}
+  ]
 
   return (
     <Card sx={{ minWidth: 275, maxWidth: 950, p: 4 }}>
@@ -46,7 +57,6 @@ const Form = () => {
         />
         <TextField
           fullWidth
-          disabled
           id="seedVariety"
           label="What is the seed variety"  
         /> 
@@ -60,14 +70,14 @@ const Form = () => {
           <TextField fullWidth id="seedPurchase" label="Where did you buy them" /> 
         </Card>
 
-        <TextField
-          fullWidth
-          id="seedVolume"
-          value={seedVolume}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSeedVolume(e.target.value)}
-          label="How much seed did you use"
-          helperText="add by volume or weight or both"
-        />
+          <AdornmentTypeInput 
+            adornmentInitialValue={weightVolumeOptions[1].value}
+            adornmentOptions={weightVolumeOptions}
+            onChange={onWeightVolumeChange}
+            label="How much seed did you use"
+            helperText="add by volume or weight"
+          
+          />
         {/* TODO: add field with volume or weight or both */}
         <TextField
           fullWidth
@@ -94,7 +104,7 @@ const Form = () => {
 
         <CheckboxedInput
           label="Add reminders to water or mist"
-          checkboxValues={[ 'Morning', 'Late Morning', 'Midday', 'Evening' ]} //TODO: pull these values from user settings 
+          checkboxValues={[ 'Morning', 'Midday', 'Evening' ]} //TODO: pull these values from user settings 
           onChange={onScheduledInput}
         />
         {/* TODO: add multiple tasks */}
