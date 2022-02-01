@@ -50,15 +50,15 @@ const Form = () => {
           fullWidth
           id="displayName"
           value={displayName}
-          label="What do you what to call it"
+          label="Give this growth a name"
           helperText="Give it a name"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDisplayName(e.target.value)}
-          onBlur={() => console.log('Blured')}
+          // onBlur={() => console.log('Blured')}
         />
         <TextField
           fullWidth
           id="seedVariety"
-          label="What is the seed variety"  
+          label="Which seeds are you growing"  
         /> 
         {/* TODO: add seeds to seed type  */}
         <Card>
@@ -82,7 +82,7 @@ const Form = () => {
         <TextField
           fullWidth
           id="growthType"
-          label="Are you growing sprouts or microgreens"
+          label="Are you growing sprouts, microgreens or plants"
           value={growthType}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGrowthType(e.target.value)}
         />
