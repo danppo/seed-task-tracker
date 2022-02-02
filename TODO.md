@@ -7,7 +7,7 @@
 - Location autocomplete add new locations
 - ~~Add time picker for task~~
 - allow multiple tasks to be added
-- add initial soak
+- ~~add initial soak~~
 - Growth Location use chips
 
 ## Display current growing seeds
