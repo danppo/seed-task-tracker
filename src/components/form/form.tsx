@@ -4,9 +4,10 @@ import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
-import CheckboxedInput from '../checkboxedInput';
 
+import CheckboxedInput from '../checkboxedInput';
 import AdornmentTypeInput from '../adornmentTypeInput';
+import SliderInput from '../sliderInput';
 
 const Form = () => {
 
@@ -18,6 +19,7 @@ const Form = () => {
   const [taskAction, setTaskAction ] = useState<string>('');
   const [taskSchedule, setTaskSchedule ] = useState<string>('');
   const [comments, setComments ] = useState<string>('');
+  const [soakTime, setSoakTime ] = useState<number>(0);
 
   const onSubmit = () => {
     console.log('submitted')
@@ -38,6 +40,11 @@ const Form = () => {
     {value: "teaspoon", displayName: "tsp"},
     {value: "tablespoon", displayName: "tbsp"}
   ]
+
+  const soakTimeRange = {
+    min: 0,
+    max: 12
+  }
 
   return (
     <Card sx={{ minWidth: 275, maxWidth: 950, p: 4 }}>
@@ -79,6 +86,13 @@ const Form = () => {
           
           />
         {/* TODO: add field with volume or weight or both */}
+
+        <SliderInput 
+          value={soakTime}
+          onChange={setSoakTime}
+          title="Soaking Time (hours)"
+          range={soakTimeRange}
+        />
         <TextField
           fullWidth
           id="growthType"
