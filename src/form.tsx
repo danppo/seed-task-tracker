@@ -3,15 +3,11 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import Slider from '@mui/material/Slider';
-import Grid from '@mui/material/Grid';
-import MuiInput from '@mui/material/Input';
-import { styled } from '@mui/material/styles';
 import { useState } from 'react';
 
 
 import AdornmentTypeInput from './components/adornmentTypeInput';
+import SliderInput from './components/sliderInput';
 
 const Form = () => {
 
@@ -23,23 +19,8 @@ const Form = () => {
   const [taskAction, setTaskAction ] = useState<string>('');
   const [taskSchedule, setTaskSchedule ] = useState<string>('');
   const [comments, setComments ] = useState<string>('');
+  const [soakTime, setSoakTime ] = useState<number>(0);
 
-
-  const [value, setValue] = useState<number | string | Array<number | string>>(
-    30,
-  );
-
-  const handleSliderChange = (event: Event, newValue: number | number[]) => {
-    setValue(newValue);
-  };
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value === '' ? '' : Number(event.target.value));
-  };
-
-  const Input = styled(MuiInput)`
-  width: 42px;
-`;
 
 
   const onSubmit = () => {
@@ -55,6 +36,11 @@ const Form = () => {
     {value: "teaspoon", displayName: "tsp"},
     {value: "tablespoon", displayName: "tbsp"}
   ]
+
+  const soakTimeRange = {
+    min: 0,
+    max: 12
+  }
 
   return (
     <Card sx={{ minWidth: 275, maxWidth: 650, p: 4 }}>
@@ -96,40 +82,13 @@ const Form = () => {
           
           />
         {/* TODO: add field with volume or weight or both */}
-        <Box sx={{ width: 350 }}>
-          <Typography id="input-slider" gutterBottom>
-            Soaking Time (hours)
-          </Typography>
-          <Grid container spacing={2} alignItems="center">
-            <Grid item xs>
-              <Slider
-                value={typeof value === 'number' ? value : 0}
-                onChange={handleSliderChange}
-                aria-labelledby="input-slider"
-                // defaultValue={30}
-                step={1}
-                marks
-                min={0}
-                max={12}
-              />
-            </Grid>
-            <Grid item>
-              <Input
-                value={value}
-                size="small"
-                onChange={handleInputChange}
-                // onBlur={handleBlur}
-                inputProps={{
-                  step: 1,
-                  min: 0,
-                  max: 48,
-                  type: 'number',
-                  'aria-labelledby': 'input-slider',
-                }}
-              />
-            </Grid>
-          </Grid>
-        </Box>
+
+        <SliderInput 
+          value={soakTime}
+          onChange={setSoakTime}
+          title="Soaking Time (hours)"
+          range={soakTimeRange}
+        />
         <TextField
           fullWidth
           id="growthType"
