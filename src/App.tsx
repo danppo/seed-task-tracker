@@ -1,22 +1,44 @@
 import React from 'react';
 import { Routes, Route, Outlet, Link } from "react-router-dom";
-import Form from './form';
-import logo from './logo.svg';
+import Form from './components/form';
 import Container from '@mui/material/Container';
 import './App.scss';
 
 const App = () => {
+  
+  const Layout = () => {
+    return (
+      <div>
+        {/* A "layout route" is a good place to put markup you want to
+            share across all the pages on your site, like navigation. */}
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+            <li>
+              <Link to="/dashboard">Dashboard</Link>
+            </li>
+            <li>
+              <Link to="/nothing-here">Nothing Here</Link>
+            </li>
+          </ul>
+        </nav>
+  
+        <hr />
+  
+        {/* <Outlet> is like a placeholder for child routes. */}
+        <Outlet />
+      </div>
+    );
+  }
+
+
   return (
     <div>
-      <h1>Basic Example</h1>
-
-      <p>
-        This example demonstrates some of the core features of React Router
-        including nested <code>&lt;Route&gt;</code>s,{" "}
-        <code>&lt;Outlet&gt;</code>s, <code>&lt;Link&gt;</code>s, and using a
-        "*" route (aka "splat route") to render a "not found" page when someone
-        visits an unrecognized URL.
-      </p>
 
       {/* Routes nest inside one another. Nested route paths build upon
             parent route paths, and nested route elements render inside
@@ -37,43 +59,13 @@ const App = () => {
   );
 }
 
-const Layout = () => {
-  return (
-    <div>
-      {/* A "layout route" is a good place to put markup you want to
-          share across all the pages on your site, like navigation. */}
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-          <li>
-            <Link to="/nothing-here">Nothing Here</Link>
-          </li>
-        </ul>
-      </nav>
 
-      <hr />
-
-      {/* An <Outlet> renders whatever child route is currently active,
-          so you can think about this <Outlet> as a placeholder for
-          the child routes we defined above. */}
-      <Outlet />
-    </div>
-  );
-}
-
+// TODO: move components out from app file
 const Home = () => {
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="md">
       <Form />
-  </Container>
+    </Container>
   );
 }
 

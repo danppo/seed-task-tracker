@@ -5,9 +5,9 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 
-
-import AdornmentTypeInput from './components/adornmentTypeInput';
-import SliderInput from './components/sliderInput';
+import CheckboxedInput from '../checkboxedInput';
+import AdornmentTypeInput from '../adornmentTypeInput';
+import SliderInput from '../sliderInput';
 
 const Form = () => {
 
@@ -21,10 +21,14 @@ const Form = () => {
   const [comments, setComments ] = useState<string>('');
   const [soakTime, setSoakTime ] = useState<number>(0);
 
-
-
   const onSubmit = () => {
     console.log('submitted')
+  }
+  const onScheduledInput = (item: object) => {
+    console.log('triggered')
+    console.log(item);
+    
+
   }
   const onWeightVolumeChange = (input: string, inputType: string) => {
     console.log(input, inputType)
@@ -43,7 +47,7 @@ const Form = () => {
   }
 
   return (
-    <Card sx={{ minWidth: 275, maxWidth: 650, p: 4 }}>
+    <Card sx={{ minWidth: 275, maxWidth: 950, p: 4 }}>
 
       <Typography variant="h3" component="h3">
         Add New Seeds
@@ -53,15 +57,15 @@ const Form = () => {
           fullWidth
           id="displayName"
           value={displayName}
-          label="What do you what to call it"
+          label="Give this growth a name"
           helperText="Give it a name"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDisplayName(e.target.value)}
-          onBlur={() => console.log('Blured')}
+          // onBlur={() => console.log('Blured')}
         />
         <TextField
           fullWidth
           id="seedVariety"
-          label="What is the seed variety"  
+          label="Which seeds are you growing"  
         /> 
         {/* TODO: add seeds to seed type  */}
         <Card>
@@ -92,7 +96,7 @@ const Form = () => {
         <TextField
           fullWidth
           id="growthType"
-          label="Are you growing sprouts or microgreens"
+          label="Are you growing sprouts, microgreens or plants"
           value={growthType}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGrowthType(e.target.value)}
         />
@@ -112,19 +116,10 @@ const Form = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGrowthMedium(e.target.value)}
         />
 
-        <TextField
-          fullWidth
-          id="taskAction"
+        <CheckboxedInput
           label="Add reminders to water or mist"
-          value={taskAction}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTaskAction(e.target.value)}
-        />
-        <TextField
-          fullWidth
-          id="taskschedule"
-          label="How often do you need to do it"
-          value={taskSchedule}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTaskSchedule(e.target.value)}
+          checkboxValues={[ 'Morning', 'Midday', 'Evening' ]} //TODO: pull these values from user settings 
+          onChange={onScheduledInput}
         />
         {/* TODO: add multiple tasks */}
         <TextField
