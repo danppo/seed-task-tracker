@@ -3,11 +3,13 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import Radio from '@mui/material/Radio'
 import { useState } from 'react';
 
 import CheckboxedInput from '../checkboxedInput';
 import AdornmentTypeInput from '../adornmentTypeInput';
 import SliderInput from '../sliderInput';
+import RadioButtonGroup from '../radioButtonGroup';
 
 const Form = () => {
 
@@ -20,6 +22,9 @@ const Form = () => {
   const [taskSchedule, setTaskSchedule ] = useState<string>('');
   const [comments, setComments ] = useState<string>('');
   const [soakTime, setSoakTime ] = useState<number>(0);
+  const [plantTypeAdded, setPlantTypeAdded] = useState<string>("");
+  const [plantTypePicked, setPlantTypePicked] = useState<string>("");
+  const [plantGrowthTypes, setPlantGrowthTypes] = useState<string[]>(["Sprouts", "Shoots", "Microgreens", "Plant"]);
 
   const onSubmit = () => {
     console.log('submitted')
@@ -27,11 +32,20 @@ const Form = () => {
   const onScheduledInput = (item: object) => {
     console.log('triggered')
     console.log(item);
-    
-
   }
   const onWeightVolumeChange = (input: string, inputType: string) => {
     console.log(input, inputType)
+  }
+
+  const onPlantTypePick = (picked: string) => {
+    setPlantTypePicked(picked)
+  }
+  const onPlantTypeAdded = (added: string) => {
+    console.log(added)
+  }
+  const manuallyAdded = (input: string, newPickedTypes: Array<string>) => {
+    setPlantGrowthTypes(newPickedTypes);
+    setPlantTypePicked(input);
   }
 
   const weightVolumeOptions = [
@@ -40,6 +54,8 @@ const Form = () => {
     {value: "teaspoon", displayName: "tsp"},
     {value: "tablespoon", displayName: "tbsp"}
   ]
+
+  // const plantGrowthTypes = ["Sprouts", "Shoots", "Microgreens", "Plant"]
 
   const soakTimeRange = {
     min: 0,
@@ -93,12 +109,13 @@ const Form = () => {
           title="Soaking Time (hours)"
           range={soakTimeRange}
         />
-        <TextField
-          fullWidth
-          id="growthType"
-          label="Are you growing sprouts, microgreens or plants"
-          value={growthType}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGrowthType(e.target.value)}
+        <RadioButtonGroup
+            addedManually={manuallyAdded}
+            title="Plant type"
+            options={plantGrowthTypes}
+            picked={plantTypePicked}
+            onChange={onPlantTypePick}
+            onInput={onPlantTypeAdded}
         />
         <TextField
           fullWidth

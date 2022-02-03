@@ -8,7 +8,7 @@
 - ~~Add time picker for task~~
 - allow multiple tasks to be added
 - ~~add initial soak~~
-- Growth Location use chips
+- Growth location use chips
 
 ## Display current growing seeds
 - display next task
