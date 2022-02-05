@@ -6,7 +6,7 @@
 - ~~make 2 in 1 input for weight/volume~~
 - Location autocomplete add new locations
 - ~~Add time picker for task~~
-- allow multiple tasks to be added
+- ~~allow multiple tasks to be added~~
 - ~~add initial soak~~
 - Growth location use chips
 
