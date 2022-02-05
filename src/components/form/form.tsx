@@ -4,6 +4,10 @@ import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Radio from '@mui/material/Radio'
+import IconButton from '@mui/material/IconButton';
+
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { useState } from 'react';
 
 import CheckboxedInput from '../checkboxedInput';
@@ -15,16 +19,13 @@ const Form = () => {
 
   const [displayName, setDisplayName ] = useState<string>('');
   const [seedVolume, setSeedVolume ] = useState<string>('');
-  const [growthType, setGrowthType ] = useState<string>('');
   const [growthLocation, setGrowthLocation ] = useState<string>('');
   const [growthMedium, setGrowthMedium ] = useState<string>('');
-  const [taskAction, setTaskAction ] = useState<string>('');
-  const [taskSchedule, setTaskSchedule ] = useState<string>('');
   const [comments, setComments ] = useState<string>('');
   const [soakTime, setSoakTime ] = useState<number>(0);
-  const [plantTypeAdded, setPlantTypeAdded] = useState<string>("");
   const [plantTypePicked, setPlantTypePicked] = useState<string>("");
   const [plantGrowthTypes, setPlantGrowthTypes] = useState<string[]>(["Sprouts", "Shoots", "Microgreens", "Plant"]);
+
 
   const onSubmit = () => {
     console.log('submitted')
@@ -54,8 +55,10 @@ const Form = () => {
     {value: "teaspoon", displayName: "tsp"},
     {value: "tablespoon", displayName: "tbsp"}
   ]
+  const taskSchedule = [ 'Morning', 'Midday', 'Evening' ];
 
   // const plantGrowthTypes = ["Sprouts", "Shoots", "Microgreens", "Plant"]
+  
 
   const soakTimeRange = {
     min: 0,
@@ -135,10 +138,10 @@ const Form = () => {
 
         <CheckboxedInput
           label="Add reminders to water or mist"
-          checkboxValues={[ 'Morning', 'Midday', 'Evening' ]} //TODO: pull these values from user settings 
+          checkboxValues={taskSchedule}
           onChange={onScheduledInput}
         />
-        {/* TODO: add multiple tasks */}
+
         <TextField
           multiline
           fullWidth
