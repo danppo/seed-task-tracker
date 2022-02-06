@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import Radio from '@mui/material/Radio'
 import IconButton from '@mui/material/IconButton';
 
@@ -14,6 +15,7 @@ import CheckboxedInput from '../checkboxedInput';
 import AdornmentTypeInput from '../adornmentTypeInput';
 import SliderInput from '../sliderInput';
 import RadioButtonGroup from '../radioButtonGroup';
+import TypeAhead from '../typeAhead';
 
 const Form = () => {
 
@@ -127,6 +129,14 @@ const Form = () => {
           value={growthLocation}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGrowthLocation(e.target.value)}
         />
+
+        <TypeAhead />
+
+
+
+
+
+
         <TextField
           fullWidth
           id="growthMedium"
