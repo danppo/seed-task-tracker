@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import Radio from '@mui/material/Radio'
 import IconButton from '@mui/material/IconButton';
 
@@ -14,6 +15,12 @@ import CheckboxedInput from '../checkboxedInput';
 import AdornmentTypeInput from '../adornmentTypeInput';
 import SliderInput from '../sliderInput';
 import RadioButtonGroup from '../radioButtonGroup';
+import TypeAhead from '../typeAhead';
+
+import TypeAheadInput from '../typeAheadInput';
+
+
+import SeedEntry from '../seedEntry';
 
 const Form = () => {
 
@@ -25,7 +32,8 @@ const Form = () => {
   const [soakTime, setSoakTime ] = useState<number>(0);
   const [plantTypePicked, setPlantTypePicked] = useState<string>("");
   const [plantGrowthTypes, setPlantGrowthTypes] = useState<string[]>(["Sprouts", "Shoots", "Microgreens", "Plant"]);
-
+  const [locationOptions, setLocationOptions] = useState<string[]>(["windows sill", "kitchen window"])
+  const [growthMediumOptions, setGrowthMediumOptions] = useState<string[]>(["sprouting jar", "seed tray", "kitchen Towel"])
 
   const onSubmit = () => {
     console.log('submitted')
@@ -36,6 +44,9 @@ const Form = () => {
   }
   const onWeightVolumeChange = (input: string, inputType: string) => {
     console.log(input, inputType)
+  }
+  const onLocationChange = (input: string) => {
+    console.log(input)
   }
 
   const onPlantTypePick = (picked: string) => {
@@ -56,8 +67,6 @@ const Form = () => {
     {value: "tablespoon", displayName: "tbsp"}
   ]
   const taskSchedule = [ 'Morning', 'Midday', 'Evening' ];
-
-  // const plantGrowthTypes = ["Sprouts", "Shoots", "Microgreens", "Plant"]
   
 
   const soakTimeRange = {
@@ -67,6 +76,7 @@ const Form = () => {
 
   return (
     <Card sx={{ minWidth: 275, maxWidth: 950, p: 4 }}>
+      {/* <SeedEntry /> */}
 
       <Typography variant="h3" component="h3">
         Add New Seeds
@@ -74,27 +84,13 @@ const Form = () => {
       <Stack spacing={2} >
         <TextField
           fullWidth
-          id="displayName"
           value={displayName}
           label="Give this growth a name"
           helperText="Give it a name"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDisplayName(e.target.value)}
           // onBlur={() => console.log('Blured')}
         />
-        <TextField
-          fullWidth
-          id="seedVariety"
-          label="Which seeds are you growing"  
-        /> 
-        {/* TODO: add seeds to seed type  */}
-        <Card>
-          <Typography variant="h6" component="h6">
-            Seed Packet Information
-          </Typography>
-          <TextField  id="seedPrice" label="How much was it" /> 
-          <TextField  id="seedPriceWeight" label="What's the weight" /> 
-          <TextField fullWidth id="seedPurchase" label="Where did you buy them" /> 
-        </Card>
+        <TypeAheadInput />
 
           <AdornmentTypeInput 
             adornmentInitialValue={weightVolumeOptions[1].value}
@@ -120,21 +116,21 @@ const Form = () => {
             onChange={onPlantTypePick}
             onInput={onPlantTypeAdded}
         />
-        <TextField
-          fullWidth
-          id="growthLocation"
-          label="Where are you growing them"
-          value={growthLocation}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGrowthLocation(e.target.value)}
-        />
-        <TextField
-          fullWidth
-          id="growthMedium"
-          label="How are you growing them"
-          helperText="on a tray, in a jar, etc"
-          value={growthMedium}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGrowthMedium(e.target.value)}
-        />
+
+      <TypeAhead
+          title={"Where"}
+          options={locationOptions}
+          onChange={onLocationChange}
+          newAdded={setLocationOptions}
+      />
+
+      <TypeAhead
+          title={"In what"}
+          options={growthMediumOptions}
+          onChange={setGrowthMedium}
+          newAdded={setGrowthMediumOptions}
+      />
+
 
         <CheckboxedInput
           label="Add reminders to water or mist"
