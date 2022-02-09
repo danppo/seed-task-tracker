@@ -76,8 +76,7 @@ const Form = () => {
 
   return (
     <Card sx={{ minWidth: 275, maxWidth: 950, p: 4 }}>
-      <SeedEntry />
-      <TypeAheadInput />
+      {/* <SeedEntry /> */}
 
       <Typography variant="h3" component="h3">
         Add New Seeds
@@ -91,12 +90,7 @@ const Form = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDisplayName(e.target.value)}
           // onBlur={() => console.log('Blured')}
         />
-        <TextField
-          fullWidth
-          id="seedVariety"
-          label="Which seeds are you growing"  
-        /> 
-        {/* TODO: add seeds to seed type  */}
+        <TypeAheadInput />
 
           <AdornmentTypeInput 
             adornmentInitialValue={weightVolumeOptions[1].value}
