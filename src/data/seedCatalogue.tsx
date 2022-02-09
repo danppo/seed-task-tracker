@@ -1,4 +1,16 @@
-const SeedCatalogue = [
+
+export interface SeedItemInterface {
+  seedName: string,
+  price: number,
+  weightGram: number,
+  gramTsp: number,
+  link: string,
+  pricePerGram: number,
+  shop: string
+}
+
+
+const seedCatalogue:SeedItemInterface[] = [
   {
     "seedName": "Broccoli Rabb",
     "price": 1.49,
@@ -19,5 +31,5 @@ const SeedCatalogue = [
   }
 ];
 
-export default SeedCatalogue;
+export default seedCatalogue;
 
