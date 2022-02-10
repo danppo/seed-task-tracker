@@ -1,14 +1,13 @@
 # ToDO's for seed task tracker
 ## Add Seeds Form
-- Seed variety autocomplete dropdown
-- Option to add new seed variety to dropdown
+- ~~Seed variety autocomplete dropdown
+- ~~Option to add new seed variety to dropdown
 - Seed add weight or volume logic
-- ~~make 2 in 1 input for weight/volume~~
-- Location autocomplete add new locations
-- ~~Add time picker for task~~
-- ~~allow multiple tasks to be added~~
+- ~~make 2 in 1 input for weight/volume
+- ~~Location autocomplete add new locations
+- ~~Add time picker for task
+- ~~allow multiple tasks to be added
 - ~~add initial soak~~
-- Growth location use chips
 
 ## Display current growing seeds
 - display next task
@@ -46,3 +45,7 @@
 ## user authentication
 - add in user auth
 
+
+## node server
+- create server
+- read JSON file
