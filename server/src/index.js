@@ -5,7 +5,6 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 
 const app = express();
-const port = 3005;
 
 // let books = []
 console.log(process.env.MY_SECRET);
@@ -24,4 +23,6 @@ app.get('/',(req,res) => {
   res.send('seed task server');
 });
 
-app.listen(port, () => console.log(`Seed task tracker server listening on port ${port}`));
+app.listen(process.env.PORT, () =>
+  console.log(`Seed task tracker server listening on port ${process.env.PORT}`)
+);
