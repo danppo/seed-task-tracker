@@ -44,8 +44,16 @@
 
 ## user authentication
 - add in user auth
+- add registration / login page
+- protect routes 
+- 
 
 
 ## node server
 - create server
-- read JSON file
+- setup routes
+- create routes files
+- setup mongodb
+- connect to db
+- link db functions to routes
+- 
