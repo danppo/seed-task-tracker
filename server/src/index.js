@@ -2,12 +2,24 @@ import 'dotenv/config';
 
 import express from 'express';
 import cors from 'cors';
-import routes deom './routes';
+import routes from './routes';
+import mongoose from 'mongoose';
 
+mongoose.connect(process.env.MONGODB);
+
+
+console.log(routes.growing);
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+
+app.use('/growing', routes.growing);
+app.use('/login', routes.login);
+app.use('/register', routes.register);
+app.use('/catalogue', routes.catalogue);
+
 
 // app.use((req, res, next) => {
 //   // do something
@@ -15,28 +27,6 @@ app.use(express.urlencoded({ extended: true }));
 //   next();
 // });
 
-// const date = Date.parse(req.body.date);
-// const count = Number(req.body.count);
-
-// let books = []
-console.log(process.env.MY_SECRET);
-console.log(process.env.PORT);
-
-app.use('./growing', routes.growing);
-app.use('./login', routes.login);
-app.use('./register', routes.register);
-app.use('./catalogue', routes.catalogue);
-
-
-
-app.use(cors());
-
-// app.use(bodyParser.urlencoded({extended: false}));
-// app.use(bodyParser.json());
-
-// app.post('/book', (req, res) => {
-
-// });
 
 app.get('/',(req,res) => {
   res.send('seed task server GET');
