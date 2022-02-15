@@ -1,8 +1,10 @@
 import React from 'react';
 import { Routes, Route, Outlet, Link } from "react-router-dom";
-import Form from './components/form';
 import Container from '@mui/material/Container';
 import './App.scss';
+
+import Form from './components/form';
+import Register from './components/register';
 
 const App = () => {
   
@@ -71,9 +73,9 @@ const Home = () => {
 
 const About = () => {
   return (
-    <div>
-      <h2>About</h2>
-    </div>
+    <Container maxWidth="md">
+      <Register />
+    </Container>
   );
 }
 

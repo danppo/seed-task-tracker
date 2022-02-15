@@ -44,8 +44,27 @@
 
 ## user authentication
 - add in user auth
+- add registration
+- registration page check if username/ email already is in DB on blur
+- login page
+- protect routes 
+- 
 
 
 ## node server
-- create server
-- read JSON file
+- ~~create server~~
+- ~~setup routes~~
+- ~~create routes files~~
+- ~~setup mongodb~~
+- ~~connect to db~~
+- link db functions to routes
+- link up hashing
+- create user data schema
+- create public data schema
+- create public data endpoint
+- set up JWT
+
+
+## about page 
+- set up about page 
+- display about on register/ not logged in homepage 
