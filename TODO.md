@@ -45,10 +45,10 @@
 ## user authentication
 - add in user auth
 - add registration
-- registration page check if username/ email already is in DB on blur
+- registration error handling 
+- registration page check if username/ email already is in DB
 - login page
 - protect routes 
-- 
 
 
 ## node server
