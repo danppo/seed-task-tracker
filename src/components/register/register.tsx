@@ -61,6 +61,7 @@ useEffect(() => {
         <TextField
           fullWidth
           value={password}
+          type="password"
           label="Password"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
         />

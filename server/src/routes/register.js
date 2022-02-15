@@ -1,16 +1,22 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
+import userSchema from '../schema';
 
 mongoose.connect(process.env.MONGODB);
 
-const userSchema = mongoose.Schema({
-  userName: String,
-  email: String,
-  password: String
-});
+// const userSchema = mongoose.Schema({
+//   userName: String,
+//   email: String,
+//   password: String
+// });
 
 const User = mongoose.model("User", userSchema ); // defines the catalogue to use 
+
+const hashEnum = {
+  SET: 'set',
+  MATCH: 'match'
+};
 
 const passwordHash = async (password, action, savedHash) => {
   const saltRounds = 10;
@@ -18,9 +24,9 @@ const passwordHash = async (password, action, savedHash) => {
   try {
     const hashPassword = await bcrypt.hash(password, saltRounds);
 
-    if (action === 'SET') {
+    if (action === hashEnum.SET) {
       return hashPassword;
-    } else if (action === 'MATCH') {
+    } else if (action === hashEnum.MATCH) {
       const isMatch = await bcrypt.compare(password, savedHash)
       return isMatch;
     } else {
@@ -47,25 +53,32 @@ router.get('/', (req, res) => {
   res.send('Get register')
 });
 
+
+
 router.post('/', (req, res) => {
   
   if (!req.body.email || !req.body.userName || !req.body.password) {
     res.send('oops missing information')
   } else {
-    const newUser = new User({
-      userName: req.body.userName,
-      email: req.body.email,
-      passowrd: req.body.password
-    });
+    passwordHash(req.body.password, hashEnum.SET)
+      .then((hash) => {
+        console.log(hash)
+        const newUser = new User({
+          userName: req.body.userName,
+          email: req.body.email,
+          password: hash
+        });
+        newUser.save((err, User) => {
+          if (err) {
+            res.send('oops server issue')
+          } else {
+            res.send(`new user added ${User}`)
+          }
+    
+        });
 
-    newUser.save((err, User) => {
-      if (err) {
-        res.send('oops server issue')
-      } else {
-        res.send(`new user added ${User}`)
-      }
+      });
 
-    });
   }
 
   console.log(req.body)
