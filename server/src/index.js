@@ -18,7 +18,7 @@ import routes from './routes';
 // const User = mongoose.model("User", userSchema );
 
 
-console.log(routes.growing);
+
 const app = express();
 
 app.use(express.json());
