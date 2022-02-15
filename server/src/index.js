@@ -3,9 +3,19 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import routes from './routes';
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
 
-mongoose.connect(process.env.MONGODB);
+// mongoose.connect(process.env.MONGODB);
+
+
+
+// const userSchema = mongoose.Schema({
+//   userName: String,
+//   email: String,
+//   password: String
+// });
+
+// const User = mongoose.model("User", userSchema );
 
 
 console.log(routes.growing);
