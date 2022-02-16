@@ -8,6 +8,7 @@
 - ~~Add time picker for task~~
 - ~~allow multiple tasks to be added~~
 - ~~add initial soak~~
+- Submit to backend
 
 ## Display current growing seeds
 - display next task
@@ -37,18 +38,17 @@
 - allow sharing of seedstock
 - choose if growths are shared
 
-## Notifications 
-- setup desktop notification server
-- ask to allow notifications 
-- settings for times of notifications 
 
 ## user authentication
-- add in user auth
-- add registration
-- registration error handling 
-- registration page check if username/ email already is in DB
-- login page
-- protect routes 
+- ~~add in user auth~~
+- ~~add registration~~
+- ~~register save jwt~~
+- ~~register redirect on success~~
+- ~~registration error handling~~ 
+- ~~registration page check if username/ email already is in DB~~
+- ~~login page~~
+- ~~login page submit/error~~
+- protect routes Tidy up
 
 
 ## node server
@@ -58,7 +58,7 @@
 - ~~setup mongodb~~
 - ~~connect to db~~
 - link db functions to routes
-- link up hashing
+- ~~link up hashing~~
 - create user data schema
 - create public data schema
 - create public data endpoint
@@ -68,3 +68,8 @@
 ## about page 
 - set up about page 
 - display about on register/ not logged in homepage 
+
+## Notifications 
+- setup desktop notification server
+- ask to allow notifications 
+- settings for times of notifications 

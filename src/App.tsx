@@ -5,8 +5,12 @@ import './App.scss';
 
 import Form from './components/form';
 import Register from './components/register';
+import Login from './components/login';
+import AuthedRoutes from './routes/authedRoutes';
 
 const App = () => {
+
+  
   
   const Layout = () => {
     return (
@@ -23,6 +27,9 @@ const App = () => {
             </li>
             <li>
               <Link to="/dashboard">Dashboard</Link>
+            </li>
+            <li>
+              <Link to="/login">Login / Register</Link>
             </li>
             <li>
               <Link to="/nothing-here">Nothing Here</Link>
@@ -49,7 +56,8 @@ const App = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="dashboard" element={<AuthedRoutes><Dashboard /></AuthedRoutes>} />
+          <Route path="login" element={<LoginPage />} />
 
           {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
@@ -75,6 +83,16 @@ const About = () => {
   return (
     <Container maxWidth="md">
       <Register />
+      <Login />
+    </Container>
+  );
+}
+
+const LoginPage = () => {
+  return (
+    <Container maxWidth="md">
+      <Register />
+      <Login />
     </Container>
   );
 }
