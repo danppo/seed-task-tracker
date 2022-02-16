@@ -15,30 +15,30 @@ mongoose.connect(process.env.MONGODB);
 
 // const User = mongoose.model("User", userSchema ); // defines the catalogue to use 
 
-const hashEnum = {
-  SET: 'set',
-  MATCH: 'match'
-};
+// const hashEnum = {
+//   SET: 'set',
+//   MATCH: 'match'
+// };
 
-const passwordHash = async (password, action, savedHash) => {
-  const saltRounds = 10;
+// const passwordHash = async (password, action, savedHash) => {
+//   const saltRounds = 10;
 
-  try {
-    const hashPassword = await bcrypt.hash(password, saltRounds);
+//   try {
+//     const hashPassword = await bcrypt.hash(password, saltRounds);
 
-    if (action === hashEnum.SET) {
-      return hashPassword;
-    } else if (action === hashEnum.MATCH) {
-      const isMatch = await bcrypt.compare(password, savedHash)
-      return isMatch;
-    } else {
-      return null;
-    }
-  } catch (error) {
-    console.log(error);
-  }
+//     if (action === hashEnum.SET) {
+//       return hashPassword;
+//     } else if (action === hashEnum.MATCH) {
+//       const isMatch = await bcrypt.compare(password, savedHash)
+//       return isMatch;
+//     } else {
+//       return null;
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
 
-};
+// };
 
 const authenticateToken = (req, res , next) => {
   const authHeader = req.headers['authorization'];
@@ -74,13 +74,13 @@ router.post('/', async (req, res) => {
     const { firstName, lastName, email, password } = req.body;
 
     if (!(email && password && firstName && lastName)) {
-      res.status(400).send("All input is required");
+      res.status(400).send({message: "All inputs are required"});
     }
 
     const oldUser = await User.findOne({ email });
 
     if (oldUser) {
-      return res.status(409).send("User Already Exist. Please Login");
+      return res.status(409).send({message: "User Already Exist. Please Login"});
     }
 
     const encryptedPassword = await bcrypt.hash(password, 10);
@@ -101,11 +101,11 @@ router.post('/', async (req, res) => {
     );
 
     user.token = token;
+    user.message = "Registration successful"
 
 
-    res.status(201).json(user);
+    res.status(201).send(user);
   } catch (err) {
-    console.log(err);
   }
 
 
