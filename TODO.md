@@ -44,9 +44,11 @@
 
 ## user authentication
 - add in user auth
-- add registration
+- ~~add registration~~
+- register save jwt
+- register redirect on success
 - registration error handling 
-- registration page check if username/ email already is in DB
+- ~~registration page check if username/ email already is in DB~~
 - login page
 - protect routes 
 
@@ -63,6 +65,7 @@
 - create public data schema
 - create public data endpoint
 - set up JWT
+- jwt refresh
 
 
 ## about page 
