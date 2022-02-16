@@ -1,7 +1,9 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
-import userSchema from '../schema';
+import jwt from 'jsonwebtoken';
+
+import User from '../schema';
 
 mongoose.connect(process.env.MONGODB);
 
@@ -11,7 +13,7 @@ mongoose.connect(process.env.MONGODB);
 //   password: String
 // });
 
-const User = mongoose.model("User", userSchema ); // defines the catalogue to use 
+// const User = mongoose.model("User", userSchema ); // defines the catalogue to use 
 
 const hashEnum = {
   SET: 'set',
@@ -45,43 +47,92 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
 
-  User.find({userName: 'test'}, (err, res) => {
-    console.log(err);
-    console.log(res);
+  // User.find({userName: 'test'}, (err, res) => {
+  //   console.log(err);
+  //   console.log(res);
 
-  })
+  // })
   res.send('Get register')
 });
 
 
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   
-  if (!req.body.email || !req.body.userName || !req.body.password) {
-    res.send('oops missing information')
-  } else {
-    passwordHash(req.body.password, hashEnum.SET)
-      .then((hash) => {
-        console.log(hash)
-        const newUser = new User({
-          userName: req.body.userName,
-          email: req.body.email,
-          password: hash
-        });
-        newUser.save((err, User) => {
-          if (err) {
-            res.send('oops server issue')
-          } else {
-            res.send(`new user added ${User}`)
-          }
-    
-        });
+  try {
+    const { firstName, lastName, email, password } = req.body;
 
-      });
+    if (!(email && password && firstName && lastName)) {
+      res.status(400).send("All input is required");
+    }
 
+    const oldUser = await User.findOne({ email });
+
+    if (oldUser) {
+      return res.status(409).send("User Already Exist. Please Login");
+    }
+
+    const encryptedPassword = await bcrypt.hash(password, 10);
+
+    const user = await User.create({
+      firstName,
+      lastName,
+      email: email.toLowerCase(),
+      password: encryptedPassword,
+    });
+
+    const token = jwt.sign(
+      { user_id: user._id, email },
+      process.env.TOKEN_KEY,
+      {
+        expiresIn: "2h",
+      }
+    );
+
+    user.token = token;
+
+
+    res.status(201).json(user);
+  } catch (err) {
+    console.log(err);
   }
 
-  console.log(req.body)
+
+
+
+
+
+
+
+
+
+
+
+  // if (!req.body.email || !req.body.firstName || !req.body.lastName || !req.body.password) {
+  //   res.send('oops missing information')
+  // } else {
+  //   passwordHash(req.body.password, hashEnum.SET)
+  //     .then((hash) => {
+  //       console.log(hash)
+  //       const newUser = new User({
+  //         firstName: req.body.firstName,
+  //         lastName: req.body.lastName,
+  //         email: req.body.email,
+  //         password: hash
+  //       });
+  //       newUser.save((err, User) => {
+  //         if (err) {
+  //           res.send(`oops server issue: ${err}`)
+  //         } else {
+  //           res.send(`new user added ${User}`)
+  //         }
+    
+  //       });
+
+  //     });
+
+  // }
+
   // res.send('post register')
 });
 

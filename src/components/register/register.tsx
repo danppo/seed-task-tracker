@@ -10,21 +10,35 @@ const Register = () => {
 
   const baseUrl = "http://localhost:3005/register";
 
-  const [userName, setUserName ] = useState<string>('');
+  const [firstName, setFirstName ] = useState<string>('');
+  const [lastName, setLastName ] = useState<string>('');
   const [email, setEmail ] = useState<string>('');
   const [password, setPassword ] = useState<string>('');
   const [apiResponse, setApiResponse ] = useState<string>('');
+  const [error, setError] = useState(false);
+  const [submitDisabled, setSubmitDisabled] = useState(true);
 
   const onSubmit = () => {
     console.log('submitted')
     axios
     .post(baseUrl, {
       email,
-      userName,
+      firstName,
+      lastName,
       password
     })
     .then((response) => {
-      setApiResponse(response.data);
+      setApiResponse(response.data.toString());
+      console.log(response);
+      
+    })
+    .catch((err) => {
+      console.log(err);
+      if (err.response) {
+        console.log(err.response);
+        
+      }
+      
     });
   }
 
@@ -35,23 +49,44 @@ useEffect(() => {
     })
 },[])
 
+useEffect(() => {
+  if (firstName.length > 0 && lastName.length > 0 && email.length > 0 ) {
+    setSubmitDisabled(false);
+  } else {
+    setSubmitDisabled(true);
+  }
+
+}, [firstName, lastName, email, password] )
+
 
   return (
     <Card sx={{ minWidth: 275, maxWidth: 950, p: 4 }}>
       {/* <SeedEntry /> */}
 
-      <Typography variant="h3" component="h3">
-        Register
-      </Typography>
       <Stack spacing={2} >
-        <TextField
-          fullWidth
-          value={userName}
-          label="User name"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)}
-        />
+
+        <Typography variant="h3" component="h3">
+          Register
+        </Typography>
+
+        <Stack spacing={2} direction="row" >
+          <TextField
+            required
+            value={firstName}
+            label="First name"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFirstName(e.target.value)}
+          />
+          <TextField
+            required
+            value={lastName}
+            label="Last name"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLastName(e.target.value)}
+          />
+
+        </Stack>
 
         <TextField
+          required
           fullWidth
           value={email}
           label="email"
@@ -59,6 +94,7 @@ useEffect(() => {
         />
 
         <TextField
+          required
           fullWidth
           value={password}
           type="password"
@@ -70,6 +106,7 @@ useEffect(() => {
 
       <Button
         variant="contained"
+        disabled={submitDisabled}
         onClick={() => onSubmit()}
       >
         Register
