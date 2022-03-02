@@ -3,6 +3,7 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import routes from './routes';
+import auth from './middleware/auth';
 // import mongoose from 'mongoose';
 
 // mongoose.connect(process.env.MONGODB);
@@ -51,19 +52,22 @@ app.delete('/',(req,res) => {
   res.send('seed task server DELETE');
 });
 
+app.post("/welcome", auth, (req, res) => {
+  res.status(200).send("Welcome 🙌 ");
+});
 
-app.get('/user',(req,res) => {
-  res.send('user seed task server GET');
-});
-app.post('/user',(req,res) => {
-  res.send('user seed task server POST');
-});
-app.put('/user/:userId',(req,res) => {
-  res.send(`user seed task server PUT ${req.params.userId}`);
-});
-app.delete('/user',(req,res) => {
-  res.send('user seed task server DELETE');
-});
+// app.get('/user',(req,res) => {
+//   res.send('user seed task server GET');
+// });
+// app.post('/user',(req,res) => {
+//   res.send('user seed task server POST');
+// });
+// app.put('/user/:userId',(req,res) => {
+//   res.send(`user seed task server PUT ${req.params.userId}`);
+// });
+// app.delete('/user',(req,res) => {
+//   res.send('user seed task server DELETE');
+// });
 
 app.listen(process.env.PORT, () =>
   console.log(`Seed task tracker server listening on port ${process.env.PORT}`)
