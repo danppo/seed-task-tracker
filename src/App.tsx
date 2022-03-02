@@ -1,19 +1,18 @@
-import React from 'react';
+import React from "react";
 import { Routes, Route, Outlet, Link } from "react-router-dom";
-import Container from '@mui/material/Container';
-import './App.scss';
+import Container from "@mui/material/Container";
+import "./App.scss";
 
-import Form from './components/form';
-import Register from './components/register';
-import Login from './components/login';
-import AuthedRoutes from './routes/authedRoutes';
-import MenuBar from './components/menuBar';
-import AboutContent from './components/aboutContent';
+import Dashboard from "./pages/dashboard";
+
+import Form from "./components/form";
+import Register from "./components/register";
+import Login from "./components/login";
+import AuthedRoutes from "./routes/authedRoutes";
+import MenuBar from "./components/menuBar";
+import AboutContent from "./components/aboutContent";
 
 const App = () => {
-
-  
-  
   const Layout = () => {
     return (
       <div>
@@ -22,12 +21,10 @@ const App = () => {
         {/* <MenuBar /> */}
       </div>
     );
-  }
-
+  };
 
   return (
     <div>
-
       {/* Routes nest inside one another. Nested route paths build upon
             parent route paths, and nested route elements render inside
             parent route elements. See the note about <Outlet> below. */}
@@ -35,7 +32,38 @@ const App = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
-          <Route path="dashboard" element={<AuthedRoutes><Dashboard /></AuthedRoutes>} />
+          <Route
+            path="dashboard"
+            element={
+              <AuthedRoutes>
+                <Dashboard />
+              </AuthedRoutes>
+            }
+          />
+          <Route
+            path="new"
+            element={
+              <AuthedRoutes>
+                <New />
+              </AuthedRoutes>
+            }
+          />
+          <Route
+            path="history"
+            element={
+              <AuthedRoutes>
+                <Dashboard />
+              </AuthedRoutes>
+            }
+          />
+          <Route
+            path="public"
+            element={
+              <AuthedRoutes>
+                <Dashboard />
+              </AuthedRoutes>
+            }
+          />
           <Route path="login" element={<LoginPage />} />
 
           {/* Using path="*"" means "match anything", so this route
@@ -46,8 +74,7 @@ const App = () => {
       </Routes>
     </div>
   );
-}
-
+};
 
 // TODO: move components out from app file
 const Home = () => {
@@ -56,7 +83,7 @@ const Home = () => {
       <Form />
     </Container>
   );
-}
+};
 
 const About = () => {
   return (
@@ -66,7 +93,7 @@ const About = () => {
       <AboutContent />
     </Container>
   );
-}
+};
 
 const LoginPage = () => {
   return (
@@ -75,15 +102,15 @@ const LoginPage = () => {
       <Login />
     </Container>
   );
-}
+};
 
-const Dashboard = () => {
+const New = () => {
   return (
     <div>
-      <h2>Dashboard</h2>
+      <h2>New</h2>
     </div>
   );
-}
+};
 
 const NoMatch = () => {
   return (
@@ -94,6 +121,6 @@ const NoMatch = () => {
       </p>
     </div>
   );
-}
+};
 
 export default App;
