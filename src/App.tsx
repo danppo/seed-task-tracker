@@ -7,6 +7,8 @@ import Form from './components/form';
 import Register from './components/register';
 import Login from './components/login';
 import AuthedRoutes from './routes/authedRoutes';
+import MenuBar from './components/menuBar';
+import AboutContent from './components/aboutContent';
 
 const App = () => {
 
@@ -15,32 +17,9 @@ const App = () => {
   const Layout = () => {
     return (
       <div>
-        {/* A "layout route" is a good place to put markup you want to
-            share across all the pages on your site, like navigation. */}
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/dashboard">Dashboard</Link>
-            </li>
-            <li>
-              <Link to="/login">Login / Register</Link>
-            </li>
-            <li>
-              <Link to="/nothing-here">Nothing Here</Link>
-            </li>
-          </ul>
-        </nav>
-  
-        <hr />
-  
-        {/* <Outlet> is like a placeholder for child routes. */}
+        <MenuBar />
         <Outlet />
+        {/* <MenuBar /> */}
       </div>
     );
   }
@@ -84,6 +63,7 @@ const About = () => {
     <Container maxWidth="md">
       <Register />
       <Login />
+      <AboutContent />
     </Container>
   );
 }

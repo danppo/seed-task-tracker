@@ -52,18 +52,18 @@ app.delete('/',(req,res) => {
 });
 
 
-app.get('/user',(req,res) => {
-  res.send('user seed task server GET');
-});
-app.post('/user',(req,res) => {
-  res.send('user seed task server POST');
-});
-app.put('/user/:userId',(req,res) => {
-  res.send(`user seed task server PUT ${req.params.userId}`);
-});
-app.delete('/user',(req,res) => {
-  res.send('user seed task server DELETE');
-});
+// app.get('/user',(req,res) => {
+//   res.send('user seed task server GET');
+// });
+// app.post('/user',(req,res) => {
+//   res.send('user seed task server POST');
+// });
+// app.put('/user/:userId',(req,res) => {
+//   res.send(`user seed task server PUT ${req.params.userId}`);
+// });
+// app.delete('/user',(req,res) => {
+//   res.send('user seed task server DELETE');
+// });
 
 app.listen(process.env.PORT, () =>
   console.log(`Seed task tracker server listening on port ${process.env.PORT}`)

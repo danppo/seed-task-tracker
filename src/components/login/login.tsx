@@ -67,7 +67,7 @@ const Register = () => {
 
   useEffect(() => {
     setCookieAllowed(localStorage.getItem("cookiesAllowed") === "true" ? true : false);
-    setCookieAuth(true);
+    setCookieAuth(false);
     // setToken('');
   }, [])
 
@@ -76,7 +76,7 @@ const Register = () => {
     <Card sx={{ minWidth: 275, maxWidth: 950, p: 4 }}>
       <Stack spacing={2} >
 
-        <Typography variant="h3" component="h3">
+        <Typography variant="h4" component="h4">
           Login
         </Typography>
 

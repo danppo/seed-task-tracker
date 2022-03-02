@@ -99,7 +99,7 @@ useEffect(() => {
     <Card sx={{ minWidth: 275, maxWidth: 950, p: 4 }}>
       <Stack spacing={2} >
 
-        <Typography variant="h3" component="h3">
+        <Typography variant="h4" component="h4">
           Register
         </Typography>
 
