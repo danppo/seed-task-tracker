@@ -62,11 +62,11 @@
 - create user data schema
 - create public data schema
 - create public data endpoint
-- set up JWT
+- ~~set up JWT~~
 
 
 ## about page 
-- set up about page 
+- ~~set up about page~~ 
 - display about on register/ not logged in homepage 
 
 ## Notifications 
