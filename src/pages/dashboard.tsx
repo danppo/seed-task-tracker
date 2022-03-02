@@ -2,6 +2,8 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import axios from "axios";
 
+import GrowthTable from "../components/growthTable";
+
 const Dashboard = () => {
   const baseUrl = "http://localhost:3005/welcome";
 
@@ -21,6 +23,7 @@ const Dashboard = () => {
       <Typography variant="h4" gutterBottom component="h4">
         Dashboard
       </Typography>
+      <GrowthTable />
     </Box>
   );
 };
