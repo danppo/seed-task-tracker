@@ -42,6 +42,8 @@ const Register = () => {
         password,
       })
       .then((res) => {
+        console.log(res.data);
+        
         if (res.data.message) {
           setServerMessage(res.data.message);
         }
