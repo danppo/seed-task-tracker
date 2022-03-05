@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-import User from '../schema';
+import User, { Record } from '../schema';
 
 mongoose.connect(process.env.MONGODB);
 
@@ -30,11 +30,17 @@ router.post('/', async (req, res) => {
 
     const encryptedPassword = await bcrypt.hash(password, 10);
 
+    const record = await Record.create({
+      user: email.toLowerCase(),
+      displayName: firstName
+    });
+
     const user = await User.create({
       firstName,
       lastName,
       email: email.toLowerCase(),
       password: encryptedPassword,
+      recordId: record._id
     });
 
     const token = jwt.sign(
@@ -46,7 +52,8 @@ router.post('/', async (req, res) => {
     );
 
     user.token = token;
-    user.message = "Registration successful"
+    user.message = "Registration successful";
+    // user.recordId = record._id;
 
     res.status(201).send(user);
   } catch (err) {

@@ -6,7 +6,18 @@ const userSchema = new mongoose.Schema({
   email: { type: String, unique: true },
   password: { type: String },
   token: { type: String },
+  recordId: { type: String },
 });
 
-export default mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema);
+export default User;
 
+const userRecordSchema = new mongoose.Schema({
+  user: { type: String, unique: true },
+  displayName: { type: String },
+  settings: { type: Object },
+  seedCollection: { type: Array },
+  growths: { type: Array }
+});
+
+export const Record = mongoose.model("Record", userRecordSchema);
