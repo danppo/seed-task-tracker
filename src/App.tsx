@@ -1,34 +1,23 @@
-import React from "react";
-import { Routes, Route, Outlet, Link } from "react-router-dom";
-import Container from "@mui/material/Container";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+// import {  } from "react-router-dom";
 import "./App.scss";
 
 import Dashboard from "./pages/dashboard";
+import Layout from "./pages/layout";
+import Home from "./pages/home";
+import About from "./pages/about";
+import New from "./pages/new";
+import SignIn from "./pages/signIn";
 
-import Form from "./components/form";
-import Register from "./components/register";
-import Login from "./components/login";
 import AuthedRoutes from "./routes/authedRoutes";
-import MenuBar from "./components/menuBar";
-import AboutContent from "./components/aboutContent";
+
 
 const App = () => {
-  const Layout = () => {
-    return (
-      <div>
-        <MenuBar />
-        <Outlet />
-        {/* <MenuBar /> */}
-      </div>
-    );
-  };
 
   return (
-    <div>
-      {/* Routes nest inside one another. Nested route paths build upon
-            parent route paths, and nested route elements render inside
-            parent route elements. See the note about <Outlet> below. */}
+    <BrowserRouter>
       <Routes>
+        {/* <RouteList /> */}
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
@@ -64,62 +53,16 @@ const App = () => {
               </AuthedRoutes>
             }
           />
-          <Route path="login" element={<LoginPage />} />
+          <Route path="login" element={<SignIn />} />
 
           {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
                 routes for. */}
-          <Route path="*" element={<NoMatch />} />
+          <Route path="*" element={<SignIn />} />
         </Route>
       </Routes>
-    </div>
-  );
-};
-
-// TODO: move components out from app file
-const Home = () => {
-  return (
-    <Container maxWidth="md">
-      <Form />
-    </Container>
-  );
-};
-
-const About = () => {
-  return (
-    <Container maxWidth="md">
-      <Register />
-      <Login />
-      <AboutContent />
-    </Container>
-  );
-};
-
-const LoginPage = () => {
-  return (
-    <Container maxWidth="md">
-      <Register />
-      <Login />
-    </Container>
-  );
-};
-
-const New = () => {
-  return (
-    <div>
-      <h2>New</h2>
-    </div>
-  );
-};
-
-const NoMatch = () => {
-  return (
-    <div>
-      <h2>Nothing to see here!</h2>
-      <p>
-        <Link to="/">Go to the home page</Link>
-      </p>
-    </div>
+    
+    </BrowserRouter>
   );
 };
 
